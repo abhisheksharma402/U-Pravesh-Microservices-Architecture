@@ -6,13 +6,15 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.Map;
+
 @SpringBootApplication
 @RestController
 @RequestMapping("/admission")
-public class Application {
+public class AdmissionService {
 
 	public static void main(String[] args) {
-		SpringApplication.run(Application.class, args);
+		SpringApplication.run(AdmissionService.class, args);
 	}
 
 	@Autowired
@@ -29,13 +31,24 @@ public class Application {
 	}
 
 	@PostMapping("/finalize")
-	public String finalizeAdmission(@RequestBody String applicationData) {
-		System.out.println("Finalizing admission for application: " + applicationData);
+	public String finalizeAdmission(@RequestBody Map<String, Object> applicationData) {
+		System.out.println("Finalizing admission for: " + applicationData);
 
-		// Communicate with Notification Service
-		String notificationResponse = restTemplate.postForObject("http://localhost:8085/notify/send", applicationData, String.class);
+		// Notify student via Notification Service
+		Map<String, String> notificationRequest = Map.of(
+				"recipient", (String) applicationData.get("phone"),
+				"message", "Your admission has been finalized successfully!",
+				"notificationType", "SMS"
+		);
 
-		return "Admission finalized. Notification Response: " + notificationResponse;
+		String notificationResponse = restTemplate.postForObject(
+				"http://localhost:8085/notify/send",
+				notificationRequest,
+				String.class
+		);
+
+		System.out.println("Notification Response: " + notificationResponse);
+		return "Admission finalized. Notification sent.";
 	}
 
 }

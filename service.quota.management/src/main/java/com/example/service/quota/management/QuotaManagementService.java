@@ -7,10 +7,10 @@ import org.springframework.web.bind.annotation.*;
 @SpringBootApplication
 @RestController
 @RequestMapping("/quota")
-public class Application {
+public class QuotaManagementService {
 
 	public static void main(String[] args) {
-		SpringApplication.run(Application.class, args);
+		SpringApplication.run(QuotaManagementService.class, args);
 	}
 
 	@PostMapping("/setup")

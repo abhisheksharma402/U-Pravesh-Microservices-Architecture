@@ -1,10 +1,10 @@
-package com.example.service.quota.management;
+package com.example.service.seat.management;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class ApplicationTests {
+class SeatManagementServiceTests {
 
 	@Test
 	void contextLoads() {

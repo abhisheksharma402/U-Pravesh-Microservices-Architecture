@@ -9,13 +9,13 @@ import org.springframework.web.client.RestTemplate;
 @SpringBootApplication
 @RestController
 @RequestMapping("/institute")
-public class Application {
+public class InstituteService {
 
 	@Autowired
 	private RestTemplate restTemplate;
 
     public static void main(String[] args) {
-		SpringApplication.run(Application.class, args);
+		SpringApplication.run(InstituteService.class, args);
 	}
 
 
